@@ -1,13 +1,26 @@
 package com.example.greetingappapplication.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
-import com.example.greetingappapplication.model.Greeting;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.example.greetingappapplication.model.Greeting;
+import com.example.greetingappapplication.service.GreetingService;
 
 public class GreetingController {
     private static final String template="Hello %s";
     private static AtomicLong counter=new AtomicLong();
+
+    @Autowired
+    GreetingService greetingService;
 
     @GetMapping("/getGreeting")
     public Greeting greeting(@RequestParam (value="name",defaultValue="World") String name) {
@@ -20,5 +33,9 @@ public class GreetingController {
     @PutMapping("/putMapping/{counter}")
     public Greeting sayHello(@PathVariable long counter,@RequestParam (value="content") String content) {
         return new Greeting(counter,String.format(template, content));
+    }
+    @GetMapping("/getMessage")
+    public ResponseEntity<String> getMessage(){
+        return new ResponseEntity<String>(greetingService.getMessage(),HttpStatus.OK);
     }
 }
