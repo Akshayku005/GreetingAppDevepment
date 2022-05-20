@@ -1,5 +1,6 @@
 package com.example.greetingappapplication.controller;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import com.example.greetingappapplication.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,13 @@ public class GreetingController {
     public ResponseEntity<Greeting> saveGreeting(@RequestBody Greeting greeting){
         return new ResponseEntity<Greeting>(greetingService.saveMessage(greeting),HttpStatus.OK);
     }
-    @GetMapping("/findGreeting")
-    public ResponseEntity<String> findGreeting(@RequestParam Integer id){
-        return new ResponseEntity<String>(greetingService.getData(id),HttpStatus.OK);
+    @GetMapping("/findGreetingById")
+    public ResponseEntity<String> findGreetingById(@RequestParam Integer id){
+        return new ResponseEntity<String>(greetingService.getDataById(id),HttpStatus.OK);
+    }
+    @GetMapping("/findAllGreeting")
+    public ResponseEntity<List<Greeting>> findAllGreeting(){
+        return new ResponseEntity<List<Greeting>>(greetingService.getAllData(),HttpStatus.OK);
     }
     }
 
