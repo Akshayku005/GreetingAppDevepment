@@ -40,7 +40,7 @@ public class GreetingController {
     public ResponseEntity<String>getGreetingMessage(@RequestParam(value="fName",defaultValue="World") String fName,@RequestParam(value="lName",defaultValue="") String lName){
         return new ResponseEntity<String>(greetingService.getGreetingMessage(fName,lName),HttpStatus.OK);
     }
-    @PostMapping("/post")
+    @PostMapping("/postMessage")
     public ResponseEntity<String> getGreeting(@RequestBody User user){
         return new ResponseEntity<String>(greetingService.postMessage(user),HttpStatus.OK);
     }
@@ -55,6 +55,10 @@ public class GreetingController {
     @GetMapping("/findAllGreeting")
     public ResponseEntity<List<Greeting>> findAllGreeting(){
         return new ResponseEntity<List<Greeting>>(greetingService.getAllData(),HttpStatus.OK);
+    }
+    @PutMapping("/editGreetingById/{id}")
+    public ResponseEntity<Greeting> editGreeting(@RequestParam String content,@PathVariable Integer id){
+        return new ResponseEntity<Greeting>(greetingService.editData(id,content),HttpStatus.OK);
     }
     }
 
