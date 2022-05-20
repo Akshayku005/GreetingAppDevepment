@@ -18,14 +18,18 @@ public class GreetingService {
         return "Hello World";
     }
     public String getGreetingMessage(String fName, String lName) {
-        return "Hello "+fName+""+lName;
+        return "Hello "+fName+" "+lName;
     }
     public String postMessage(User user) {
-        return "Hello "+user.getfName()+""+user.getlName();
+        return "Hello "+user.getfName()+" "+user.getlName();
     }
     public Greeting saveMessage(Greeting greeting) {
         Greeting newGreeting=new Greeting(String.format(template,greeting.getContent()));
         repo.save(newGreeting);
         return newGreeting;
+    }
+    public String getData(Integer id) {
+        Greeting newGreeting=repo.getById(id);
+        return newGreeting.getContent();
     }
 }
