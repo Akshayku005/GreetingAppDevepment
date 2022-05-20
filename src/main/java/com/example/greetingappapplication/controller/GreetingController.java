@@ -14,6 +14,7 @@ import com.example.greetingappapplication.service.GreetingService;
 @RestController
 @RequestMapping("/web")
 public class GreetingController {
+
     private static final String template="Hello %s";
     private static AtomicInteger counter=new AtomicInteger();
 
@@ -58,7 +59,11 @@ public class GreetingController {
     }
     @PutMapping("/editGreetingById/{id}")
     public ResponseEntity<Greeting> editGreeting(@RequestParam String content,@PathVariable Integer id){
-        return new ResponseEntity<Greeting>(greetingService.editData(id,content),HttpStatus.OK);
+        return new ResponseEntity<Greeting>(greetingService.editDataById(id,content),HttpStatus.OK);
+    }
+    @DeleteMapping("/deleteGreetingById/{id}")
+    public ResponseEntity<String> deleteGreetingById(@PathVariable Integer id){
+        return new ResponseEntity<String>(greetingService.deleteDataById(id),HttpStatus.OK);
     }
     }
 
